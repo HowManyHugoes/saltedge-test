@@ -26,7 +26,7 @@ class BaseHttpWorker
   attr_reader :client, :fails_allowed, :counter, :timeout
 
   def process
-    until (result = call_client) || counter_exceeded? do
+    until (result = call_client) || counter_exceeded?
       increment_counter
     end
     result
@@ -37,7 +37,7 @@ class BaseHttpWorker
   rescue StandardError => e
     LOGGER.log_error(e)
     wait_for_timeout
-    return
+    nil
   end
 
   def counter_exceeded?
