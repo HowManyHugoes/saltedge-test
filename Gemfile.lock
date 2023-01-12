@@ -6,16 +6,12 @@ GEM
       multi_xml (>= 0.5.2)
     mini_mime (1.1.2)
     multi_xml (0.6.0)
-    nokogiri (1.13.10-x86_64-linux)
-      racc (~> 1.4)
-    racc (1.6.2)
 
 PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
   httparty
-  nokogiri
 
 BUNDLED WITH
    2.2.3
