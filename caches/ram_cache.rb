@@ -4,7 +4,6 @@ require 'digest'
 
 class RamCache
   class << self
-
     def set(key, content)
       storage[key] = content
     end
@@ -26,6 +25,5 @@ class RamCache
     def storage
       @storage ||= {}
     end
-
   end
 end

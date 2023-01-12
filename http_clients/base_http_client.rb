@@ -4,7 +4,6 @@ require 'httparty'
 
 # Simple client on httparty
 class BaseHttpClient
-
   def initialize(url)
     @url = url
   end
@@ -24,5 +23,4 @@ class BaseHttpClient
   def response
     HTTParty.get(url).response
   end
-
 end

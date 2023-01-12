@@ -4,9 +4,8 @@ require_relative 'http_clients/base_http_client'
 require_relative 'workers/base_http_worker'
 require_relative 'caches/ram_cache'
 
-# main scraper
-class HTTPScraper
-
+# Main scraper. Accepts array of urls, return array of hashes with html in {url: 'foo', html: 'bar'} format
+class HttpScraper
   DEFAULT_THREAD_POOL_SIZE = 10
 
   def initialize(http_worker_class = BaseHttpWorker, pool_size = DEFAULT_THREAD_POOL_SIZE, cache = RamCache, urls)
@@ -29,12 +28,12 @@ class HTTPScraper
       Thread.new do
         thread_results = []
         begin
-          while (url = urls_queue.pop(true)) do
+          while (url = urls_queue.pop(true))
             html = get_result_from_cache(url) || run_worker(url)
             next unless html
 
             cache_result(url, html)
-            thread_results << {url: url, body: html}
+            thread_results << { url: url, html: html }
           end
         rescue ThreadError
           thread_results
@@ -54,15 +53,13 @@ class HTTPScraper
     cache.set(key, value)
   end
 
-
   def create_queue(urls)
     q = Queue.new
-    urls.each {|url| q << url}
+    urls.each { |url| q << url }
     q
   end
 
   def run_worker(url)
     http_worker_class.new(url).call
   end
-
 end

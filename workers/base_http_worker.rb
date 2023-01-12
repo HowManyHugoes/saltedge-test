@@ -5,7 +5,6 @@ require_relative '../loggers/simple_logger'
 
 # Simple worker
 class BaseHttpWorker
-
   FAILS_ALLOWED_DEFAULT = 5
   DEFAULT_TIMEOUT = 0.15
 
@@ -28,7 +27,6 @@ class BaseHttpWorker
     return if counter_exceeded?
 
     client.call
-
   rescue StandardError => e
     SimpleLogger.log_error(e)
     increment_counter
@@ -45,6 +43,4 @@ class BaseHttpWorker
   def wait_for_timeout
     sleep(2)
   end
-
 end
-
