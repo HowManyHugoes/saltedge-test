@@ -32,6 +32,7 @@ class BaseHttpWorker
   rescue StandardError => e
     LOGGER.log_error(e)
     increment_counter
+    wait_for_timeout
     process
   end
 
