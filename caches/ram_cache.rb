@@ -2,6 +2,7 @@
 
 require 'digest'
 
+# Stores values in a RAM while project is running
 class RamCache
   class << self
     def set(key, content)
@@ -14,10 +15,6 @@ class RamCache
 
     def contains?(key)
       storage.key?(key)
-    end
-
-    def get_all
-      storage.to_a
     end
 
     private

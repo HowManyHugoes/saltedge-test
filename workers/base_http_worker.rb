@@ -3,12 +3,14 @@
 require_relative '../http_clients/base_http_client'
 require_relative '../loggers/simple_logger'
 
+LOGGER = SimpleLogger
+
 # Simple worker
 class BaseHttpWorker
   FAILS_ALLOWED_DEFAULT = 5
   DEFAULT_TIMEOUT = 0.15
 
-  def initialize(url, client_class = BaseHttpClient, fails_allowed = FAILS_ALLOWED_DEFAULT, timeout = DEFAULT_TIMEOUT)
+  def initialize(url, client_class: BaseHttpClient, fails_allowed: FAILS_ALLOWED_DEFAULT, timeout: DEFAULT_TIMEOUT)
     @client = client_class.new(url)
     @fails_allowed = fails_allowed
     @timeout = timeout
@@ -28,7 +30,7 @@ class BaseHttpWorker
 
     client.call
   rescue StandardError => e
-    SimpleLogger.log_error(e)
+    LOGGER.log_error(e)
     increment_counter
   end
 
